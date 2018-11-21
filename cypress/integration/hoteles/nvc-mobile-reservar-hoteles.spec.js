@@ -13,7 +13,7 @@ const hotel = 'Hesperia',
     cvcTarjeta = '547',
     expMesTarjeta = '10',
     expYearTarjeta = '2026',
-    moneda = 'VES';
+    moneda = 'EUR';
 
 
 
@@ -54,10 +54,24 @@ describe('RESERVAR HOTELES', () => {
         cy.SeleccionarMonedaMobile(moneda).then(() => {
 
             cy.wait(5000);
-
             cy.log('DATOS DEL CLIENTE')
-            cy.get('input[name="clientNames"]:eq(1)')
-                .type(nombreCliente);
+
+            if (moneda === 'VES') {
+
+                cy.get('input[name="clientNames"]:eq(1)')
+                    .type(nombreCliente);
+
+            } else {
+
+                const nombres = nombreCliente.split(' ');
+
+                cy.get('input[name="clientFirstName"]')
+                    .type(nombres[0]);
+
+                cy.get('input[name="clientLastName"]')
+                    .type(nombres[1]);
+
+            }
 
             cy.get('input[name="identityCard"]:eq(1)')
                 .type(identificacion);
@@ -68,11 +82,23 @@ describe('RESERVAR HOTELES', () => {
             cy.get('input[name="clientPhone"]:eq(1)')
                 .type(telCliente);
 
-            cy.get('input[name="pass1"]:eq(1)')
-                .type(password);
+            if (moneda === 'VES') {
 
-            cy.get('input[name="pass2"]:eq(1)')
-                .type(password);
+                cy.get('input[name="pass1"]:eq(1)')
+                    .type(password);
+
+                cy.get('input[name="pass2"]:eq(1)')
+                    .type(password);
+
+            } else {
+
+                cy.get('input[name="pass1"]')
+                    .type(password);
+
+                cy.get('input[name="pass2"]')
+                    .type(password);
+
+            }
 
 
             cy.log('DATOS DE TDC')
@@ -102,7 +128,7 @@ describe('RESERVAR HOTELES', () => {
 
                     } else {
 
-                        cy.get('input[name="CardCvv1_mobile"]')
+                        cy.get('input[name="CardCvv"]')
                             .type(cvcTarjeta);
 
                     }

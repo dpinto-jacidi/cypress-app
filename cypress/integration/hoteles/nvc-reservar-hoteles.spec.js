@@ -12,7 +12,7 @@ const hotel = 'Casas Del Sol',
     numeroTarjeta = '4111111111111111',
     expTarjeta = '0530',
     cvcTarjeta = '262',
-    moneda = 'VES';
+    moneda = 'USD';
 
 
 
@@ -159,10 +159,24 @@ describe('RESERVAR HOTELES', () => {
         cy.SeleccionarMoneda(moneda).then(() => {
 
             cy.wait(5000);
-
             cy.log('DATOS DEL CLIENTE')
-            cy.get('input[name="clientNames"]:first')
-                .type(nombreCliente);
+
+            if (moneda === 'VES') {
+
+                cy.get('input[name="clientNames"]:fisrt)')
+                    .type(nombreCliente);
+
+            } else {
+
+                const nombres = nombreCliente.split(' ');
+
+                cy.get('input[name="clientFirstName"]')
+                    .type(nombres[0]);
+
+                cy.get('input[name="clientLastName"]')
+                    .type(nombres[1]);
+
+            }
 
             cy.get('input[name="identityCard"]:first')
                 .type(identificacion);
@@ -181,6 +195,7 @@ describe('RESERVAR HOTELES', () => {
 
 
             cy.log('DATOS DE TDC')
+
             cy.get('.btn-tarjet span').click({ force: true })
 
             cy.get('input[name="CardNumber"]:first')

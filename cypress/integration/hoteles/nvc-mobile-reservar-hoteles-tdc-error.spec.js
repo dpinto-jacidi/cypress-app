@@ -13,7 +13,7 @@ const hotel = 'Hesperia',
     cvcTarjeta = '262',
     expMesTarjeta = '10',
     expYearTarjeta = '2026',
-    moneda = 'USD';
+    moneda = 'VES';
 
 
 
@@ -71,8 +71,6 @@ describe('RESERVAR HOTELES', () => {
 
             }
 
-
-
             cy.get('input[name="identityCard"]:eq(1)')
                 .type(identificacion);
 
@@ -128,7 +126,7 @@ describe('RESERVAR HOTELES', () => {
 
                     } else {
 
-                        cy.get('input[name="CardCvv1_mobile"]')
+                        cy.get('input[name="CardCvv"]')
                             .type(cvcTarjeta);
 
                     }

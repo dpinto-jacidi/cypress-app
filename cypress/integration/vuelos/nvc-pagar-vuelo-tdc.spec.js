@@ -5,8 +5,8 @@ const nombreCliente = 'Alejandra Noriega',
     numeroTarjeta = '4111111111111111',
     expTarjeta = '0530',
     cvcTarjeta = '262',
-    moneda = 'EUR',
-    vueloUrl = 'http://www.development.nevicu.com/app_stg.php/flights/search/CCS/MIA?adult=1&kid=0&startDate=30-11-2018&flightSearch=true&roundTrip=0&listSuggestions=';
+    moneda = 'USD',
+    vueloUrl = 'http://www.development.nevicu.com/app_stg.php/flights/search/CCS/LIS?adult=1&kid=0&startDate=24-11-2018&endDate=27-11-2018&flightSearch=true&roundTrip=1&listSuggestions=';
 
 
 describe('PAGAR VUELO', () => {
