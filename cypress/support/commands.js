@@ -302,7 +302,7 @@ Cypress.Commands.add('PagarHotelMobile', (hotelUrl) => {
 Cypress.Commands.add('PagarVuelo', (vueloUrl) => {
 
 	cy.visit(vueloUrl).then(() => {
-		cy.wait(15000)
+		cy.wait(20000)
 	})
 
 	cy.get('section.nvc-container.hidden-xs').then((container) => {

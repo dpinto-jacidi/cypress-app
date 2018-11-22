@@ -161,22 +161,8 @@ describe('RESERVAR HOTELES', () => {
             cy.wait(5000);
             cy.log('DATOS DEL CLIENTE')
 
-            if (moneda === 'VES') {
-
-                cy.get('input[name="clientNames"]:fisrt)')
-                    .type(nombreCliente);
-
-            } else {
-
-                const nombres = nombreCliente.split(' ');
-
-                cy.get('input[name="clientFirstName"]')
-                    .type(nombres[0]);
-
-                cy.get('input[name="clientLastName"]')
-                    .type(nombres[1]);
-
-            }
+            cy.get('input[name="clientNames"]:fisrt)')
+                .type(nombreCliente);
 
             cy.get('input[name="identityCard"]:first')
                 .type(identificacion);
