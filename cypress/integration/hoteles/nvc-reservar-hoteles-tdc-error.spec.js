@@ -161,10 +161,10 @@ describe('RESERVAR HOTELES', () => {
             cy.wait(5000);
 
             cy.log('DATOS DEL CLIENTE')
-            
+
             if (moneda === 'VES') {
 
-                cy.get('input[name="clientNames"]:fisrt)')
+                cy.get('input[name="clientNames"]:first')
                     .type(nombreCliente);
 
             } else {
@@ -188,11 +188,24 @@ describe('RESERVAR HOTELES', () => {
             cy.get('input[name="clientPhone"]:first')
                 .type(telCliente);
 
-            cy.get('input[name="pass1"]:first')
-                .type(password);
+            if (moneda === 'VES') {
 
-            cy.get('input[name="pass2"]:first')
-                .type(password);
+                cy.get('input[name="pass1"]:first')
+                    .type(password);
+
+                cy.get('input[name="pass2"]:first')
+                    .type(password);
+
+
+            } else {
+
+                cy.get('input[name="pass1tdc"]:first')
+                    .type(password);
+
+                cy.get('input[name="pass2tdc"]:first')
+                    .type(password);
+
+            }
 
 
             cy.log('DATOS DE TDC')
@@ -230,17 +243,30 @@ describe('RESERVAR HOTELES', () => {
 
                     cy.wait(5000);
 
+                    const textosError = [
+                        '#8628',
+                        'no son correctos, por favor ingrese los datos nuevamente',
+                    ];
+
                     cy.get('.nvc-modal--payment')
-                        .find('.nvc-modal__content--right .nvc-modal__content--wrapper .nvc-modal__content--error:first span:first')
+                        .find('.nvc-modal__content--right .nvc-modal__content--wrapper .nvc-modal__content--error:first span:first span')
                         .should((span) => {
-                            expect(span).to.contain('Disculpe, los datos de la tarjeta de crédito')
-                            expect(span.children('span')).to.contain('#8628')
+
+                            let textoCorrecto = false;
+                            if (textosError.indexOf(span.text().trim()) > -1) textoCorrecto = true;
+
+                            expect(textoCorrecto).to.be.true
+
                         });
 
                     cy.get('.nvc-modal--payment')
                         .find('.nvc-modal__content--right .nvc-modal__content--wrapper .nvc-modal__content--error:eq(1) span:first')
                         .should((span) => {
-                            expect(span).to.contain('no son correctos, por favor ingrese los datos nuevamente')
+
+                            let textoCorrecto = false;
+                            if (textosError.indexOf(span.text().trim()) > -1) textoCorrecto = true;
+
+                            expect(textoCorrecto).to.be.true
                         });
 
                 });

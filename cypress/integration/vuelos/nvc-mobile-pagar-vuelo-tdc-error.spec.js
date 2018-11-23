@@ -100,16 +100,31 @@ describe('PAGAR VUELO', () => {
 
                 cy.wait(5000);
 
+                const textosError = [
+                    'La cedula de identidad no coincide',
+                    'con el número de tarjeta',
+                    'La disponibilidad de vuelos ha cambiado',
+                    'por favor intentalo nuevamente'
+                ];
+
                 cy.get('.nvc-modal--payment')
                     .find('.nvc-modal__content--right .nvc-modal__content--wrapper .nvc-modal__content--error.visible-xs:first span')
                     .should((span) => {
-                        expect(span).to.contain('La cedula de identidad no coincide')
+
+                        let textoCorrecto = false;
+                        if (textosError.indexOf(span.text().trim()) > -1) textoCorrecto = true;
+
+                        expect(textoCorrecto).to.be.true
                     });
 
                 cy.get('.nvc-modal--payment')
                     .find('.nvc-modal__content--right .nvc-modal__content--wrapper .nvc-modal__content--error.visible-xs:eq(1) span')
                     .should((span) => {
-                        expect(span).to.contain('con el número de tarjeta')
+
+                        let textoCorrecto = false;
+                        if (textosError.indexOf(span.text().trim()) > -1) textoCorrecto = true;
+
+                        expect(textoCorrecto).to.be.true
                     });
             });
     })

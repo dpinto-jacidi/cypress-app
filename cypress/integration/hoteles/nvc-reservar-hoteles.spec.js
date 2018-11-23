@@ -1,6 +1,6 @@
-const hotel = 'Casas Del Sol',
-    fechaInicio = new Date(Date.now()).getDate() + 3,
-    fechaFinal = (new Date(Date.now()).getDate()) + 5,
+const hotel = 'Villa La Blanquilla',
+    fechaInicio = 26,
+    fechaFinal = 28,
     numAdultos = '2',
     numChildren = '2',
     numHab = '1',
@@ -26,6 +26,8 @@ describe('RESERVAR HOTELES', () => {
 
 
     it('ESCOGER HOTEL', () => {
+
+        cy.SeleccionarMoneda(moneda);
 
         cy.get('main').then((body) => {
 
@@ -115,13 +117,13 @@ describe('RESERVAR HOTELES', () => {
                         expect(data.find('h4:first span:nth-child(2)'))
                             .to.contain(checkOut);
 
-                        /*expect(data.find('h4:nth-child(2) span:first'))
+                        expect(data.find('h4:eq(1) span:first'))
                             .to.contain(numAdultos);
 
-                        /*if (numChildren > 0) {
-                            expect(data.find('h4:nth-child(2) span:nth-child(2)'))
+                        if (numChildren > 0) {
+                            expect(data.find('h4:eq(1) span:nth-child(2)'))
                                 .to.contain(numChildren)
-                        }*/
+                        }
 
                     });
 
@@ -156,12 +158,10 @@ describe('RESERVAR HOTELES', () => {
 
     it('PAGAR RESERVACIÓN', () => {
 
-        cy.SeleccionarMoneda(moneda).then(() => {
-
             cy.wait(5000);
             cy.log('DATOS DEL CLIENTE')
 
-            cy.get('input[name="clientNames"]:fisrt)')
+            cy.get('input[name="clientNames"]:first')
                 .type(nombreCliente);
 
             cy.get('input[name="identityCard"]:first')
@@ -173,11 +173,25 @@ describe('RESERVAR HOTELES', () => {
             cy.get('input[name="clientPhone"]:first')
                 .type(telCliente);
 
-            cy.get('input[name="pass1"]:first')
-                .type(password);
+            if (moneda === 'VES') {
 
-            cy.get('input[name="pass2"]:first')
-                .type(password);
+                cy.get('input[name="pass1"]:first')
+                    .type(password);
+
+                cy.get('input[name="pass2"]:first')
+                    .type(password);
+
+
+            } else {
+
+                cy.get('input[name="pass1tdc"]:first')
+                    .type(password);
+
+                cy.get('input[name="pass2tdc"]:first')
+                    .type(password);
+
+            }
+
 
 
             cy.log('DATOS DE TDC')
@@ -205,7 +219,7 @@ describe('RESERVAR HOTELES', () => {
 
             } else {
 
-                cy.get('input[name="CardCvv"]')
+                cy.get('input[name="CardCvv"]:first')
                     .type(cvcTarjeta);
 
             }
@@ -229,7 +243,6 @@ describe('RESERVAR HOTELES', () => {
 
 
                 });
-        });
 
     });
 

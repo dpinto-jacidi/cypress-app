@@ -12,7 +12,7 @@
 Cypress.Commands.add('BuscarHotel', (hotel, fechaInicio, fechaFinal, numAdultos, numChildren, numHab) => {
 
 	cy.visit('http://www.development.nevicu.com/app_stg.php').then(() => {
-		cy.wait(5000);
+		cy.wait(10000);
 	});
 
 	// Introduce hotel
@@ -104,7 +104,7 @@ Cypress.Commands.add('BuscarHotel', (hotel, fechaInicio, fechaFinal, numAdultos,
 Cypress.Commands.add('BuscarVuelo', (origen, destino, tipo, fechaInicio, fechaFinal, numAdultos, numChildren) => {
 
 	cy.visit('http://www.development.nevicu.com/app_stg.php').then(() => {
-		cy.wait(5000)
+		cy.wait(10000)
 	});
 
 	//Selecciona sección de vuelos
@@ -156,7 +156,7 @@ Cypress.Commands.add('BuscarVuelo', (origen, destino, tipo, fechaInicio, fechaFi
 	if (tipo === 1) {
 
 		cy.get('.nvc-search--flight')
-			.find('.nvc-search__input--date-end input')
+			.find('.nvc-search__input--date-end input:first')
 			.click({ force: true })
 			.then(() => {
 
@@ -240,12 +240,12 @@ Cypress.Commands.add('SeleccionarMonedaMobile', (moneda) => {
 Cypress.Commands.add('PagarHotel', (hotelUrl) => {
 
 	cy.visit(hotelUrl).then(() => {
-		cy.wait(5000)
+		cy.wait(20000)
 	});
 
 	cy.SeleccionarMoneda('VES').then(() => {
 
-		cy.wait(5000);
+		cy.wait(10000);
 
 		cy.get('.nvc-table')
 			.find('tbody tr:first td:nth-child(4) select')
@@ -268,12 +268,12 @@ Cypress.Commands.add('PagarHotel', (hotelUrl) => {
 Cypress.Commands.add('PagarHotelMobile', (hotelUrl) => {
 
 	cy.visit(hotelUrl).then(() => {
-		cy.wait(5000)
+		cy.wait(200000)
 	});
 
 	cy.SeleccionarMonedaMobile('VES').then(() => {
 
-		cy.wait(5000);
+		cy.wait(10000);
 
 		cy.get('.nvc-property-mobile__rooms')
 			.find('article:first div')
@@ -302,8 +302,8 @@ Cypress.Commands.add('PagarHotelMobile', (hotelUrl) => {
 Cypress.Commands.add('PagarVuelo', (vueloUrl) => {
 
 	cy.visit(vueloUrl).then(() => {
-		cy.wait(20000)
-	})
+		cy.wait(30000);
+	});
 
 	cy.get('section.nvc-container.hidden-xs').then((container) => {
 
@@ -334,7 +334,7 @@ Cypress.Commands.add('PagarVuelo', (vueloUrl) => {
 Cypress.Commands.add('PagarVueloMobile', (vueloUrl) => {
 
 	cy.visit(vueloUrl).then(() => {
-		cy.wait(10000)
+		cy.wait(20000)
 	})
 
 	cy.get('.button.ng-scope:eq(1)')

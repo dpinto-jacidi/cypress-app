@@ -6,7 +6,7 @@ const nombreCliente = 'Manuel Perez',
     expTarjeta = '0530',
     cvcTarjeta = '262',
     moneda = 'VES',
-    vueloUrl = 'http://www.development.nevicu.com/app_stg.php/flights/search/CCS/MIA?adult=1&kid=0&startDate=30-11-2018&flightSearch=true&roundTrip=0&listSuggestions=';
+    vueloUrl = 'http://www.development.nevicu.com/app_stg.php/flights/search/CCS/BOG?adult=1&kid=0&startDate=27-11-2018&flightSearch=true&roundTrip=0&listSuggestions=';
 
 let montoPagar = '';
 
@@ -14,15 +14,15 @@ let montoPagar = '';
 describe('PAGAR VUELO', () => {
     it('IR A PAGAR', () => {
 
-        cy.PagarVuelo(vueloUrl).then(() => {
-            cy.SeleccionarMoneda(moneda).then(() => {
-                cy.wait(5000);
-            });
-        });
+        cy.PagarVuelo(vueloUrl);
 
     });
 
     it('DATOS DEL CLIENTE', () => {
+
+        cy.SeleccionarMoneda(moneda).then(() => {
+            cy.wait(5000);
+        });
 
         cy.get('input[name="fullName0"]:first')
             .type(nombreCliente);
@@ -51,7 +51,7 @@ describe('PAGAR VUELO', () => {
         cy.get('input[name="cardAmount"]')
             .should('have.attr', 'placeholder')
             .then((placeholder) => {
-                montoPagar = placeholder.replace('Monto a pagar ', '');
+                montoPagar = placeholder.replace('Monto a pagar ', '').replace('.', '');
             });
     })
 

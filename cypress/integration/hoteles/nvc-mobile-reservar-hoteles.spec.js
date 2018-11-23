@@ -128,17 +128,20 @@ describe('RESERVAR HOTELES', () => {
 
                     } else {
 
-                        cy.get('input[name="CardCvv"]')
+                        cy.get('input[name="CardName"]')
+                            .type(cvcTarjeta);
+
+                        cy.get('input[name="CardCvv"]:eq(1)')
                             .type(cvcTarjeta);
 
                     }
 
 
-                    cy.get('select[name="expirationMonth1"]')
+                    cy.get('select[name="expirationMonth"]')
                         .select(expMesTarjeta)
                         .should('have.value', expMesTarjeta);
 
-                    cy.get('select[name="expirationYear1"]')
+                    cy.get('select[name="expirationYear"]')
                         .select(expYearTarjeta)
                         .should('have.value', expYearTarjeta);
 

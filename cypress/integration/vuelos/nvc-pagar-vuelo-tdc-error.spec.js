@@ -87,17 +87,32 @@ describe('PAGAR VUELO', () => {
 
                 cy.wait(5000);
 
+                const textosError = [
+                    'Disculpe, los datos de la tarjeta de crédito', 
+                    'Lo sentimos, la disponibilidad de vuelos, según tu búsqueda ha',
+                    'cambiado, por favor intenta nuevamente',
+                    'no son correctos, por favor ingrese los datos nuevamente'
+                ];
+
                 cy.get('.nvc-modal--payment')
                     .find('.nvc-modal__content--right .nvc-modal__content--wrapper .nvc-modal__content--error:first span:first')
                     .should((span) => {
-                        expect(span).to.contain('Disculpe, los datos de la tarjeta de crédito')
-                        expect(span.children('span')).to.contain('#7844')
+
+                        let textoCorrecto = false;
+                        if (textosError.indexOf(span.text().trim()) > -1) textoCorrecto = true;
+
+                        expect(textoCorrecto).to.be.true
+
                     });
 
                 cy.get('.nvc-modal--payment')
                     .find('.nvc-modal__content--right .nvc-modal__content--wrapper .nvc-modal__content--error:eq(1) span:first')
                     .should((span) => {
-                        expect(span).to.contain('no son correctos, por favor ingrese los datos nuevamente')
+                        
+                        let textoCorrecto = false;
+                        if (textosError.indexOf(span.text().trim()) > -1) textoCorrecto = true;
+
+                        expect(textoCorrecto).to.be.true
                     });
             });
     })

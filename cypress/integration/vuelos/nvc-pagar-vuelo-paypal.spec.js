@@ -12,6 +12,10 @@ const nombreCliente = 'Manuel Perez',
 let montoPagar = '';
 
 
+/********************************************************************
+ * Después de terminar la prueba, hacer click en el boton de PayPal *
+ ********************************************************************/
+
 describe('PAGAR VUELO', () => {
     it('IR A PAGAR', () => {
 
@@ -58,7 +62,7 @@ describe('PAGAR VUELO', () => {
             .click({ force: true })
             .then(() => {
 
-                cy.get('.paypal-button:first')
+                cy.get('.paypal-button:eq(0)')
                     .click({ force: true });
 
             });

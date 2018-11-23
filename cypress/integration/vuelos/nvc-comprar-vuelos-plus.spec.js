@@ -1,6 +1,6 @@
 const origen = 'Caracas',
     destino = 'Miami',
-    tipo = 2,
+    tipo = 1,
     fechaInicio = new Date(Date.now()).getDate() + 2,
     fechaFinal = (new Date(Date.now()).getDate()) + 4,
     numAdultos = '2',
@@ -12,6 +12,7 @@ const origen = 'Caracas',
     numeroTarjeta = '4111111111111111',
     expTarjeta = '0530',
     cvcTarjeta = '262',
+    moneda = 'VES',
     datosPasajeros = [
         {
             "nombre": "Mario Lopez",
@@ -62,7 +63,7 @@ describe('COMPRAR VUELOS', () => {
         cy.BuscarVuelo(origen, destino, tipo, fechaInicio, fechaFinal, numAdultos, numChildren).then(() => {
 
 
-            cy.wait(20000).then(() => {
+            cy.wait(30000).then(() => {
                 cy.log('ESCOGER VUELO')
 
                 cy.get('section.nvc-container.hidden-xs').then((container) => {
@@ -94,6 +95,10 @@ describe('COMPRAR VUELOS', () => {
     });
 
     it('DATOS DEL CLIENTE', () => {
+
+        cy.SeleccionarMoneda(moneda).then(() => {
+            cy.wait(5000);
+        });
 
 
         for (let i = 0; i < (parseInt(numAdultos) + parseInt(numChildren)); i++) {

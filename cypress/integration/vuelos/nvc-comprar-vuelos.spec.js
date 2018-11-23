@@ -20,12 +20,12 @@ describe('COMPRAR VUELOS', () => {
         cy.log('BUSCAR VUELO')
         cy.BuscarVuelo(origen, destino, tipo, fechaInicio, fechaFinal, numAdultos, numChildren).then(() => {
 
-            cy.wait(10000);
+            cy.wait(20000);
             cy.log('ESCOGER VUELO');
 
             cy.get('section.nvc-container.hidden-xs').then((container) => {
 
-                if (container.children('h3:nth-child(2)').length) {
+                if (container.children('h3:nth-child(2)').length > 0) {
 
                     cy.get('.button.ng-scope:first')
                         .children('button')
